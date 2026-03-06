@@ -488,7 +488,7 @@
                     <span class="tips-hours">72時間（3日）</span>
                 </div>
                 <div class="tips-item">
-                    <span class="tips-part">ハムストリングス</span>
+                    <span class="tips-part">ハム</span>
                     <span class="tips-hours">72時間（3日）</span>
                 </div>
                 <div class="tips-item">
@@ -609,7 +609,7 @@
     ======================================== */
     const TRACKED_PARTS = [
         { key: '大腿四頭筋', label: '大腿四頭筋', restHours: 72 },
-        { key: 'ハムストリングス', label: 'ハム', restHours: 72 },
+        { key: 'ハムストリングス', label: 'ハムストリングス', restHours: 72 },
         { key: 'コア', label: 'コア', restHours: 24 },
         { key: '上半身', label: '上半身', restHours: 72 },
     ];
@@ -636,6 +636,25 @@
             "今日もここまで来た。",
         ],
     };
+
+const GREETINGS_DONE = {
+    morning: [
+        "おはよう。今日はもうやったな。見事だ。",
+        "朝の時点で完了済みか。大したものだ。",
+    ],
+    afternoon: [
+        "今日の分はもう刻んである。よくやった。",
+        "記録がある。今日も動いた証拠だ。",
+    ],
+    evening: [
+        "今日もやり切ったな。身体は応えている。",
+        "今日の鍛錬、確かに刻まれている。",
+    ],
+    night: [
+        "今日も積み重ねた。よく動いた一日だ。",
+        "記録が残っている。今日も止まらなかった。",
+    ],
+};
 
     const ROTATION_COMMENTS = {
         allReady: [
@@ -819,7 +838,10 @@
         const greetingEl = document.getElementById('greeting-text');
 
         // Greeting
-        greetingEl.textContent = pick(GREETINGS[getTimeOfDay()]);
+       const todayRecord = getRecords().find(r => r.date === getJSTDate());
+       const hasDone = todayRecord && todayRecord.exercises && todayRecord.exercises.length > 0;
+       const greetingPool = hasDone ? GREETINGS_DONE[getTimeOfDay()] : GREETINGS[getTimeOfDay()];
+       greetingEl.textContent = pick(greetingPool);
 
         // Cards
         const statuses = [];
