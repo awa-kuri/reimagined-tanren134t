@@ -1,7 +1,7 @@
 {
-  "name": "健康記録",
+  "name": "鍛錬記録",
   "short_name": "health-journal",
-  "description": "日々の健康と運動の記録",
+  "description": "日々の運動の記録",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#111827",
