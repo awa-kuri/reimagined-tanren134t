@@ -591,11 +591,17 @@
             background: linear-gradient(90deg, rgba(96,165,250,0.35), rgba(96,165,250,0.7));
             border-radius: 3px;
         }
+        .balance-fill.daily {
+            background: linear-gradient(90deg, rgba(var(--lantern), 0.22), rgba(var(--lantern), 0.55));
+        }
         .balance-num {
             width: 34px;
             font-size: 11px;
             color: var(--text-secondary);
             flex-shrink: 0;
+        }
+        .balance-num.wide {
+            width: 54px;
         }
 
         /* Weekly chart */
@@ -820,9 +826,15 @@
         </div>
 
         <div class="stats-section">
-            <div class="stats-section-title">部位別バランス（直近4週間）</div>
-            <div class="balance-box" id="balance-box"></div>
+            <div class="stats-section-title">週で回す部位（直近4週間）</div>
+            <div class="balance-box" id="balance-box-rotation"></div>
             <div class="stats-note">筋トレ・HIITが対象。サブ部位も合算している。</div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stats-section-title">毎日の習慣（直近4週間）</div>
+            <div class="balance-box" id="balance-box-daily"></div>
+            <div class="stats-note">回数ではなく「触れた日数」で見る。28日が分母である。</div>
         </div>
 
         <div class="stats-section">
@@ -858,7 +870,8 @@
         { key: '上半身', label: '上半身', restHours: 72 },
     ];
 
-    const BALANCE_ORDER = ['尻', '大腿四頭筋', 'ハムストリングス', 'コア', '上半身', '下半身', 'ふくらはぎ', '全身'];
+    const ROTATION_BALANCE_PARTS = ['大腿四頭筋', 'ハムストリングス', '上半身'];
+    const DAILY_PARTS = ['尻', 'コア', 'ふくらはぎ'];
 
     const GREETINGS = {
         morning: [
@@ -1506,38 +1519,62 @@ const GREETINGS_DONE = {
         const today = getJSTDate();
         const cutoff = addDays(today, -27);
 
-        const counts = {};
+        const counts = {};   // part -> 回数
+        const daySets = {};  // part -> 実施日のSet
+
         records.forEach(r => {
             if (r.date < cutoff || r.date > today) return;
             (r.exercises || []).forEach(ex => {
                 if (ex.category !== '筋トレ' && ex.category !== 'HIIT') return;
-                if (ex.part) counts[ex.part] = (counts[ex.part] || 0) + 1;
-                if (ex.subPart) counts[ex.subPart] = (counts[ex.subPart] || 0) + 1;
+                [ex.part, ex.subPart].forEach(p => {
+                    if (!p) return;
+                    counts[p] = (counts[p] || 0) + 1;
+                    if (!daySets[p]) daySets[p] = new Set();
+                    daySets[p].add(r.date);
+                });
             });
         });
 
-        const keys = [
-            ...BALANCE_ORDER.filter(k => counts[k]),
-            ...Object.keys(counts).filter(k => !BALANCE_ORDER.includes(k)),
+        // 週で回す部位：回数で相対比較（毎日組以外の部位もここに出す）
+        const rotKeys = [
+            ...ROTATION_BALANCE_PARTS.filter(k => counts[k]),
+            ...Object.keys(counts).filter(k => !ROTATION_BALANCE_PARTS.includes(k) && !DAILY_PARTS.includes(k)),
         ];
-
-        const box = document.getElementById('balance-box');
-        if (keys.length === 0) {
-            box.innerHTML = '<div class="empty-state" style="padding:20px;">直近4週間の筋トレ記録がまだない。</div>';
-            return;
+        const rotBox = document.getElementById('balance-box-rotation');
+        if (rotKeys.length === 0) {
+            rotBox.innerHTML = '<div class="empty-state" style="padding:20px;">直近4週間の記録がまだない。</div>';
+        } else {
+            const max = Math.max(...rotKeys.map(k => counts[k]));
+            rotBox.innerHTML = rotKeys.map(k => {
+                const pct = Math.max(Math.round(counts[k] / max * 100), 4);
+                return `
+                    <div class="balance-row">
+                        <div class="balance-name">${k}</div>
+                        <div class="balance-track"><div class="balance-fill" style="width:${pct}%"></div></div>
+                        <div class="balance-num">${counts[k]}回</div>
+                    </div>
+                `;
+            }).join('');
         }
 
-        const max = Math.max(...keys.map(k => counts[k]));
-        box.innerHTML = keys.map(k => {
-            const pct = Math.max(Math.round(counts[k] / max * 100), 4);
-            return `
-                <div class="balance-row">
-                    <div class="balance-name">${k}</div>
-                    <div class="balance-track"><div class="balance-fill" style="width:${pct}%"></div></div>
-                    <div class="balance-num">${counts[k]}回</div>
-                </div>
-            `;
-        }).join('');
+        // 毎日の習慣：触れた日数／28日
+        const dailyKeys = DAILY_PARTS.filter(k => daySets[k] && daySets[k].size > 0);
+        const dailyBox = document.getElementById('balance-box-daily');
+        if (dailyKeys.length === 0) {
+            dailyBox.innerHTML = '<div class="empty-state" style="padding:20px;">直近4週間の記録がまだない。</div>';
+        } else {
+            dailyBox.innerHTML = dailyKeys.map(k => {
+                const days = Math.min(daySets[k].size, 28);
+                const pct = Math.max(Math.round(days / 28 * 100), 4);
+                return `
+                    <div class="balance-row">
+                        <div class="balance-name">${k}</div>
+                        <div class="balance-track"><div class="balance-fill daily" style="width:${pct}%"></div></div>
+                        <div class="balance-num wide">${days}/28日</div>
+                    </div>
+                `;
+            }).join('');
+        }
     }
 
     function renderWeekly() {
