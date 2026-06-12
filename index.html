@@ -24,6 +24,7 @@
             --accent-recovering: #fbbf24;
             --accent-overdue: #ff6b6b;
             --accent-blue: #60a5fa;
+            --lantern: 251, 191, 36;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -70,15 +71,16 @@
         }
         .tab {
             flex: 1;
-            padding: 13px 8px;
+            padding: 13px 2px;
             background: none;
             border: none;
             color: var(--text-muted);
             cursor: pointer;
-            font-size: 13px;
-            letter-spacing: 0.06em;
+            font-size: 12px;
+            letter-spacing: 0.02em;
             border-bottom: 2px solid transparent;
             transition: all 0.2s;
+            white-space: nowrap;
         }
         .tab.active {
             color: var(--text-primary);
@@ -323,10 +325,11 @@
             white-space: pre-wrap;
         }
 
-        .data-section {
-            border-top: 1px solid var(--border);
-            padding-top: 20px;
-            margin-top: 24px;
+        /* データ管理（履歴リストの上に配置） */
+        .data-section-top {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
         }
         .data-section-title {
             font-size: 12px;
@@ -430,6 +433,217 @@
             line-height: 1.9;
         }
 
+        /* ===== Stats ===== */
+        .stats-section {
+            margin-bottom: 28px;
+        }
+        .stats-section-title {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+        }
+        .stats-note {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            line-height: 1.7;
+        }
+
+        .stats-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 18px 14px 14px;
+            text-align: center;
+        }
+        .stat-value {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 28px;
+            font-weight: 300;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .stat-unit {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-left: 2px;
+        }
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 6px;
+            letter-spacing: 0.06em;
+        }
+
+        /* Heatmap */
+        .hm-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px;
+        }
+        .hm-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .hm-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text-primary);
+            letter-spacing: 0.1em;
+        }
+        .hm-subtitle {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 2px;
+        }
+        .hm-arrow {
+            padding: 6px 14px;
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .hm-arrow:disabled {
+            opacity: 0.3;
+            cursor: default;
+        }
+        .hm-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+        .hm-dow {
+            text-align: center;
+            font-size: 10px;
+            color: var(--text-muted);
+            padding: 2px 0 4px;
+        }
+        .hm-cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            border-radius: 4px;
+            background: var(--bg-input);
+            color: var(--text-muted);
+        }
+        .hm-cell.empty { background: transparent; }
+        .hm-cell.lv1 {
+            background: rgba(var(--lantern), 0.18);
+            color: var(--text-secondary);
+        }
+        .hm-cell.lv2 {
+            background: rgba(var(--lantern), 0.42);
+            color: var(--text-primary);
+        }
+        .hm-cell.lv3 {
+            background: rgba(var(--lantern), 0.75);
+            color: #1a1408;
+            font-weight: 500;
+        }
+        .hm-cell.today { box-shadow: inset 0 0 0 1px var(--accent-blue); }
+        .hm-cell.future { opacity: 0.35; }
+
+        /* Balance bars */
+        .balance-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px;
+        }
+        .balance-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 9px;
+        }
+        .balance-row:last-child { margin-bottom: 0; }
+        .balance-name {
+            width: 92px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-align: right;
+            flex-shrink: 0;
+        }
+        .balance-track {
+            flex: 1;
+            height: 14px;
+            background: var(--bg-input);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .balance-fill {
+            height: 100%;
+            background: linear-gradient(90deg, rgba(96,165,250,0.35), rgba(96,165,250,0.7));
+            border-radius: 3px;
+        }
+        .balance-num {
+            width: 34px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+
+        /* Weekly chart */
+        .weekly-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 14px 10px;
+        }
+        .weekly-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 6px;
+            height: 110px;
+        }
+        .weekly-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 4px;
+            height: 100%;
+        }
+        .weekly-count {
+            font-size: 10px;
+            color: var(--text-muted);
+            line-height: 1;
+        }
+        .weekly-bar {
+            width: 100%;
+            background: rgba(96, 165, 250, 0.4);
+            border-radius: 3px 3px 0 0;
+            min-height: 2px;
+        }
+        .weekly-bar.current { background: rgba(96, 165, 250, 0.8); }
+        .weekly-labels {
+            display: flex;
+            gap: 6px;
+            margin-top: 6px;
+        }
+        .weekly-label {
+            flex: 1;
+            text-align: center;
+            font-size: 9px;
+            color: var(--text-muted);
+        }
+
         @media (max-width: 480px) {
             .input-row-3 { grid-template-columns: 1fr; }
             .rotation-grid { grid-template-columns: 1fr 1fr; }
@@ -439,18 +653,6 @@
     </style>
 </head>
 <body>
-<script>
-    /* ===== 認証 ===== */
-    document.addEventListener('DOMContentLoaded', function() {
-        const SECRET_KEY = "1122";
-        const entered = prompt("認証キーを入力してください:");
-        if (entered !== SECRET_KEY) {
-            document.body.innerHTML = '<div style="padding:60px;text-align:center;color:#7a8a9e;">認証に失敗した。</div>';
-            throw new Error("認証失敗");
-        }
-    });
-</script>
-
 
 <div class="container">
     <div class="header">
@@ -465,6 +667,7 @@
         <button class="tab active" onclick="switchTab('rotation')">ローテーション</button>
         <button class="tab" onclick="switchTab('record')">記録</button>
         <button class="tab" onclick="switchTab('history')">履歴</button>
+        <button class="tab" onclick="switchTab('stats')">統計</button>
     </div>
 
     <!-- ===== ローテーション ===== -->
@@ -579,9 +782,7 @@
 
     <!-- ===== 履歴 ===== -->
     <div id="history-panel" class="panel">
-        <div id="record-list"></div>
-
-        <div class="data-section">
+        <div class="data-section-top">
             <div class="data-section-title">データ管理</div>
             <div class="data-buttons">
                 <button class="btn" onclick="exportCSV()">CSV書き出し</button>
@@ -589,6 +790,50 @@
                 <input type="file" id="import-file" class="file-input" accept=".csv" onchange="importCSV(event)">
             </div>
         </div>
+
+        <div id="record-list"></div>
+    </div>
+
+    <!-- ===== 統計 ===== -->
+    <div id="stats-panel" class="panel">
+
+        <div class="stats-section">
+            <div class="stats-section-title">積み重ねの証</div>
+            <div class="stats-cards" id="stats-cards"></div>
+            <div class="stats-note">この数字は減らない。休んだ日があっても、積み上がるだけである。</div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stats-section-title">灯りの記録</div>
+            <div class="hm-box">
+                <div class="hm-nav">
+                    <button class="hm-arrow" onclick="changeStatsMonth(-1)">◀</button>
+                    <div>
+                        <div class="hm-title" id="hm-title"></div>
+                        <div class="hm-subtitle" id="hm-subtitle"></div>
+                    </div>
+                    <button class="hm-arrow" id="hm-next" onclick="changeStatsMonth(1)">▶</button>
+                </div>
+                <div class="hm-grid" id="hm-grid"></div>
+            </div>
+            <div class="stats-note">灯り＝実施した日。濃いほど件数が多い。灯っていない日は、ただ灯っていないだけである。</div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stats-section-title">部位別バランス（直近4週間）</div>
+            <div class="balance-box" id="balance-box"></div>
+            <div class="stats-note">筋トレ・HIITが対象。サブ部位も合算している。</div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stats-section-title">週ごとの実施日数（直近8週）</div>
+            <div class="weekly-box">
+                <div class="weekly-chart" id="weekly-chart"></div>
+                <div class="weekly-labels" id="weekly-labels"></div>
+            </div>
+            <div class="stats-note">月曜始まり。棒の上の数字は運動の件数。</div>
+        </div>
+
     </div>
 </div>
 
@@ -601,6 +846,7 @@
     let exercises = [];
     let editingDate = null;
     let toastTimeout = null;
+    let statsMonth = null; // { year, month(0-11) }
 
     /* ========================================
        Constants
@@ -612,26 +858,36 @@
         { key: '上半身', label: '上半身', restHours: 72 },
     ];
 
+    const BALANCE_ORDER = ['尻', '大腿四頭筋', 'ハムストリングス', 'コア', '上半身', '下半身', 'ふくらはぎ', '全身'];
+
     const GREETINGS = {
         morning: [
             "おはよう。今日も来たな。",
             "朝か。身体を動かす準備はよいか。",
             "朝の一歩が、一日を決める。",
+            "今日の身体の声を、まず聞いてやれ。",
+            "おはよう。急がずともよい。一日は長い。",
         ],
         afternoon: [
             "戻ってきたか。",
             "午後だな。まだ時間はある。",
             "昼を過ぎたが、焦ることはない。",
+            "身体が温まっている時分である。動くには悪くない。",
+            "午後の一手、何を選ぶか。",
         ],
         evening: [
             "夕方か。今日の仕上げに入ろう。",
             "帰ってきたな。補食を摂ったら、動くか。",
             "夕飯前にひと仕事。よい判断だ。",
+            "日が暮れる。だが貴殿の火は消えておらぬ。",
+            "夕刻は鍛錬に良い頃合いである。",
         ],
         night: [
             "夜か。一日の締めくくりだ。",
             "遅い時間だな。無理はするな。",
             "今日もここまで来た。",
+            "静かな夜だ。軽く動くもよし、休むもよし。",
+            "夜は回復の時間でもある。ほどほどにな。",
         ],
     };
 
@@ -639,18 +895,26 @@ const GREETINGS_DONE = {
     morning: [
         "おはよう。今日はもうやったな。見事だ。",
         "朝の時点で完了済みか。大したものだ。",
+        "夜明けと共に済ませたか。武士の朝駆けである。",
+        "もう刻んであるとは。今日は心置きなく過ごせ。",
     ],
     afternoon: [
         "今日の分はもう刻んである。よくやった。",
         "記録がある。今日も動いた証拠だ。",
+        "既に動いたな。残りの時間は貴殿のものだ。",
+        "昼までに片を付けたか。手際がよい。",
     ],
     evening: [
         "今日もやり切ったな。身体は応えている。",
         "今日の鍛錬、確かに刻まれている。",
+        "今日の務めは果たしてある。ゆるりと過ごせ。",
+        "灯りは今日も点いた。あとは休むだけだ。",
     ],
     night: [
         "今日も積み重ねた。よく動いた一日だ。",
         "記録が残っている。今日も止まらなかった。",
+        "今日の灯りは点いている。安心して眠れ。",
+        "やるべきことはやった。良い夜を。",
     ],
 };
 
@@ -658,19 +922,25 @@ const GREETINGS_DONE = {
         allReady: [
             "全部位が回復済み。好きな部位から攻めろ。",
             "どこでも狙える状態だ。今日は何を鍛える。",
+            "身体は整っている。あとは選ぶだけだ。",
         ],
         someReady: [
             "回復した部位がある。そこから攻めるのが効率的だ。",
+            "狙い目の部位が待っている。",
+            "回復済みの部位から手を付けるのが定石である。",
         ],
         allRecovering: [
             "全部位が回復途中。軽めのヨガかストレッチでつなげ。",
             "今日は回復を優先してもよい。焦るな。",
+            "どこも回復の最中。身体を労わる日としてもよい。",
         ],
         overdue: [
             "間が空いた部位がある。今日はそこを優先せよ。",
+            "久しく触れていない部位がある。思い出させてやれ。",
         ],
         noData: [
             "まだ記録がない。",
+            "記録を始めれば、ここに状況が映る。",
         ],
     };
 
@@ -689,6 +959,18 @@ const GREETINGS_DONE = {
         "この一歩が、未来の貴殿を創る。",
         "完璧にする必要はない。不完全な継続こそが真の強さだ。",
         "静かに、そして確実に。勝利は常に地道な継続の中にある。",
+        "証は、ここにある。",
+        "灯りがまた一つ増えた。",
+        "誰が見ていなくとも、記録は見ている。",
+        "休んでも数字は減らぬ。それが蓄積というものだ。",
+        "淡々と。それでよい。",
+        "身体は今日の分を覚えている。",
+        "足跡がまた一つ。道になっていく。",
+        "貴殿の歩み、確かに受け取った。",
+        "今日の汗、無駄にはならぬ。",
+        "焦らず、比べず、止まらず。",
+        "千里の道も、今日の一歩から成る。",
+        "鍛錬に派手さは要らぬ。続いていることが全てだ。",
     ];
 
     const TIPS = [
@@ -706,6 +988,17 @@ const GREETINGS_DONE = {
         "体脂肪率の日々の変動は水分・食事・薬の影響を受ける。週単位の傾向で判断せよ。",
         "コアが弱いと他の筋トレの効率も落ちる。地味でも頻度を上げる価値がある。",
         "動ける日に動く。動けない日は休む。それが最も長く続く方法だ。",
+        "たんぱく質は一度に大量に摂るより、複数回に分けて摂る方が筋合成に有利。1回20〜30gが目安。",
+        "睡眠中に成長ホルモンが分泌され、筋繊維の修復が進む。睡眠も鍛錬の一部である。",
+        "筋肉は安静時のエネルギー消費を支える。筋量の維持は、太りにくい身体の土台になる。",
+        "自重トレでも負荷は上げられる。テンポを遅く、可動域を広く、休憩を短く──工夫の余地は多い。",
+        "左右差は珍しいことではない。弱い側に回数を合わせ、弱い側から先に行うのが基本。",
+        "力を入れる時に息を吐く。呼吸を止めると血圧が上がり、効率も落ちる。",
+        "動的ストレッチは運動前、静的ストレッチは運動後が向いている。",
+        "加齢による筋量減少は30代以降、年1%程度。週2回の筋トレで十分相殺できる。",
+        "体重が同じでも、筋量が増えれば見た目と代謝は変わる。腹囲や写真も併せて見るのが賢い。",
+        "水分不足は筋力と集中力を下げる。運動前後の一杯の水も鍛錬のうち。",
+        "フォームが崩れた回数は数えなくてよい。正しい1回は、崩れた3回に勝る。",
     ];
 
     function renderTips() {
@@ -795,6 +1088,26 @@ const GREETINGS_DONE = {
         const day = d.getDate();
         const w = ['日','月','火','水','木','金','土'][d.getDay()];
         return `${m}/${day}（${w}）`;
+    }
+
+    /* 日付演算（タイムゾーン非依存・文字列ベース） */
+    function fmtUTC(dt) {
+        return `${dt.getUTCFullYear()}-${String(dt.getUTCMonth() + 1).padStart(2, '0')}-${String(dt.getUTCDate()).padStart(2, '0')}`;
+    }
+
+    function addDays(dateStr, n) {
+        const [y, m, d] = dateStr.split('-').map(Number);
+        const dt = new Date(Date.UTC(y, m - 1, d + n));
+        return fmtUTC(dt);
+    }
+
+    function getWeekStart(dateStr) { // 月曜始まり
+        const [y, m, d] = dateStr.split('-').map(Number);
+        const dt = new Date(Date.UTC(y, m - 1, d));
+        const day = dt.getUTCDay(); // 0=日
+        const diff = (day === 0) ? -6 : 1 - day;
+        dt.setUTCDate(dt.getUTCDate() + diff);
+        return fmtUTC(dt);
     }
 
     /* ========================================
@@ -1090,6 +1403,186 @@ const GREETINGS_DONE = {
     }
 
     /* ========================================
+       Stats
+    ======================================== */
+    function renderStats() {
+        if (!statsMonth) {
+            const today = getJSTDate();
+            const [y, m] = today.split('-').map(Number);
+            statsMonth = { year: y, month: m - 1 };
+        }
+        renderStatsSummary();
+        renderHeatmap();
+        renderBalance();
+        renderWeekly();
+    }
+
+    function renderStatsSummary() {
+        const records = getRecords();
+        const activeDays = records.filter(r => r.exercises && r.exercises.length > 0).length;
+        const totalItems = records.reduce((sum, r) => sum + (r.exercises ? r.exercises.length : 0), 0);
+
+        document.getElementById('stats-cards').innerHTML = `
+            <div class="stat-card">
+                <div><span class="stat-value">${activeDays}</span><span class="stat-unit">日</span></div>
+                <div class="stat-label">総記録日数</div>
+            </div>
+            <div class="stat-card">
+                <div><span class="stat-value">${totalItems}</span><span class="stat-unit">件</span></div>
+                <div class="stat-label">総運動件数</div>
+            </div>
+        `;
+    }
+
+    function changeStatsMonth(delta) {
+        if (!statsMonth) return;
+        let { year, month } = statsMonth;
+        month += delta;
+        if (month < 0) { month = 11; year--; }
+        if (month > 11) { month = 0; year++; }
+
+        // 未来の月へは進めない
+        const today = getJSTDate();
+        const [ty, tm] = today.split('-').map(Number);
+        if (year > ty || (year === ty && month > tm - 1)) return;
+
+        statsMonth = { year, month };
+        renderHeatmap();
+    }
+
+    function renderHeatmap() {
+        const { year, month } = statsMonth;
+        const records = getRecords();
+        const countMap = {};
+        records.forEach(r => {
+            if (r.exercises && r.exercises.length > 0) countMap[r.date] = r.exercises.length;
+        });
+
+        const today = getJSTDate();
+        const [ty, tm] = today.split('-').map(Number);
+        const isCurrentMonth = (year === ty && month === tm - 1);
+
+        // タイトル・ナビ
+        document.getElementById('hm-title').textContent = `${year}年${month + 1}月`;
+        document.getElementById('hm-next').disabled = isCurrentMonth;
+
+        const startWeekday = new Date(Date.UTC(year, month, 1)).getUTCDay(); // 0=日
+        const daysInMonth = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+
+        let html = '';
+        ['日','月','火','水','木','金','土'].forEach(w => {
+            html += `<div class="hm-dow">${w}</div>`;
+        });
+
+        for (let i = 0; i < startWeekday; i++) {
+            html += '<div class="hm-cell empty"></div>';
+        }
+
+        let monthActiveDays = 0;
+        for (let d = 1; d <= daysInMonth; d++) {
+            const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+            const count = countMap[dateStr] || 0;
+            if (count > 0) monthActiveDays++;
+
+            let level = 0;
+            if (count >= 5) level = 3;
+            else if (count >= 3) level = 2;
+            else if (count >= 1) level = 1;
+
+            const classes = ['hm-cell'];
+            if (level > 0) classes.push(`lv${level}`);
+            if (dateStr === today) classes.push('today');
+            if (dateStr > today) classes.push('future');
+
+            html += `<div class="${classes.join(' ')}">${d}</div>`;
+        }
+
+        document.getElementById('hm-grid').innerHTML = html;
+        document.getElementById('hm-subtitle').textContent = monthActiveDays > 0 ? `${monthActiveDays}日 灯った` : '';
+    }
+
+    function renderBalance() {
+        const records = getRecords();
+        const today = getJSTDate();
+        const cutoff = addDays(today, -27);
+
+        const counts = {};
+        records.forEach(r => {
+            if (r.date < cutoff || r.date > today) return;
+            (r.exercises || []).forEach(ex => {
+                if (ex.category !== '筋トレ' && ex.category !== 'HIIT') return;
+                if (ex.part) counts[ex.part] = (counts[ex.part] || 0) + 1;
+                if (ex.subPart) counts[ex.subPart] = (counts[ex.subPart] || 0) + 1;
+            });
+        });
+
+        const keys = [
+            ...BALANCE_ORDER.filter(k => counts[k]),
+            ...Object.keys(counts).filter(k => !BALANCE_ORDER.includes(k)),
+        ];
+
+        const box = document.getElementById('balance-box');
+        if (keys.length === 0) {
+            box.innerHTML = '<div class="empty-state" style="padding:20px;">直近4週間の筋トレ記録がまだない。</div>';
+            return;
+        }
+
+        const max = Math.max(...keys.map(k => counts[k]));
+        box.innerHTML = keys.map(k => {
+            const pct = Math.max(Math.round(counts[k] / max * 100), 4);
+            return `
+                <div class="balance-row">
+                    <div class="balance-name">${k}</div>
+                    <div class="balance-track"><div class="balance-fill" style="width:${pct}%"></div></div>
+                    <div class="balance-num">${counts[k]}回</div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function renderWeekly() {
+        const records = getRecords();
+        const today = getJSTDate();
+        const thisWeekStart = getWeekStart(today);
+
+        const weeks = [];
+        for (let i = 7; i >= 0; i--) {
+            weeks.push(addDays(thisWeekStart, -7 * i));
+        }
+
+        const chartHtml = [];
+        const labelHtml = [];
+
+        weeks.forEach((ws, idx) => {
+            const we = addDays(ws, 6);
+            let days = 0;
+            let items = 0;
+            records.forEach(r => {
+                if (r.date < ws || r.date > we) return;
+                if (r.exercises && r.exercises.length > 0) {
+                    days++;
+                    items += r.exercises.length;
+                }
+            });
+
+            const heightPct = Math.round(days / 7 * 100);
+            const isCurrent = (ws === thisWeekStart);
+            const [, m, d] = ws.split('-').map(Number);
+
+            chartHtml.push(`
+                <div class="weekly-col">
+                    <div class="weekly-count">${items > 0 ? items : ''}</div>
+                    <div class="weekly-bar${isCurrent ? ' current' : ''}" style="height:${Math.max(heightPct, 2)}%"></div>
+                </div>
+            `);
+            labelHtml.push(`<div class="weekly-label">${m}/${d}</div>`);
+        });
+
+        document.getElementById('weekly-chart').innerHTML = chartHtml.join('');
+        document.getElementById('weekly-labels').innerHTML = labelHtml.join('');
+    }
+
+    /* ========================================
        CSV Export / Import
     ======================================== */
     function exportCSV() {
@@ -1208,7 +1701,7 @@ const GREETINGS_DONE = {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
 
-        const tabLabels = { rotation: 'ローテーション', record: '記録', history: '履歴' };
+        const tabLabels = { rotation: 'ローテーション', record: '記録', history: '履歴', stats: '統計' };
         document.querySelectorAll('.tab').forEach(t => {
             if (t.textContent === tabLabels[tabName]) t.classList.add('active');
         });
@@ -1216,6 +1709,10 @@ const GREETINGS_DONE = {
 
         if (tabName === 'rotation') renderRotation();
         if (tabName === 'history') renderHistory();
+        if (tabName === 'stats') {
+            statsMonth = null; // 開くたびに当月へ戻す
+            renderStats();
+        }
     }
 
     /* ========================================
