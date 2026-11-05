@@ -7,24 +7,30 @@
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#0f1419">
+    <meta name="theme-color" content="#141311">
     <link rel="apple-touch-icon" href="icon-192.png">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
+        /* ===== 色の札（ここを書き換えれば全体の色が変わる） =====
+           墨色の地に、灯り（琥珀）・苔（緑）・朱（赤）・藍（青）の四色 */
         :root {
-            --bg-deep: #0f1419;
-            --bg-card: #1a2332;
-            --bg-input: #0d1117;
-            --border: #2a3544;
-            --border-light: #3d4f63;
-            --text-primary: #d1dae6;
-            --text-secondary: #7a8a9e;
-            --text-muted: #4a5568;
-            --accent-ready: #4ade80;
-            --accent-recovering: #fbbf24;
-            --accent-overdue: #ff6b6b;
-            --accent-blue: #60a5fa;
-            --lantern: 251, 191, 36;
+            --bg-deep: #141311;
+            --bg-card: #1e1c19;
+            --bg-input: #111010;
+            --border: #2e2a25;
+            --border-light: #47413a;
+            --text-primary: #ebe4d7;
+            --text-secondary: #a8a093;
+            --text-muted: #6e675d;
+            --accent-ready: #94b98b;       /* 苔：回復済み */
+            --accent-recovering: #d4a650;  /* 琥珀：回復中 */
+            --accent-overdue: #d8785c;     /* 朱：間が空いた */
+            --accent-blue: #8aa6c9;        /* 藍：今日の印など */
+            --accent-main: #c9694d;        /* 朱：選んでいる札の下線 */
+            --lantern: 214, 166, 80;       /* 灯り（rgb） */
+            --ai: 138, 166, 201;           /* 藍（rgb） */
+            --btn-primary-bg: #2b3628;
+            --btn-primary-border: #4b6044;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -47,7 +53,7 @@
         /* ===== Header ===== */
         .header {
             text-align: center;
-            padding: 30px 0 8px;
+            padding: 24px 0 4px;
         }
         .header h1 {
             font-family: 'Noto Serif JP', serif;
@@ -84,7 +90,7 @@
         }
         .tab.active {
             color: var(--text-primary);
-            border-bottom-color: var(--accent-overdue);
+            border-bottom-color: var(--accent-main);
         }
 
         /* ===== Panels ===== */
@@ -94,8 +100,8 @@
         /* ===== Greeting ===== */
         .greeting {
             text-align: center;
-            padding: 14px 16px;
-            margin-bottom: 6px;
+            padding: 6px 16px 10px;
+            margin-bottom: 2px;
         }
         .greeting-text {
             font-family: 'Noto Serif JP', serif;
@@ -170,7 +176,8 @@
         .btn-record-start {
             display: block;
             width: 100%;
-            padding: 14px;
+            margin-bottom: 22px;
+            padding: 13px;
             background: var(--bg-card);
             border: 1px solid var(--border-light);
             border-radius: 8px;
@@ -196,7 +203,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 12px;
+            padding: 6px 12px;
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 6px;
@@ -278,8 +285,8 @@
             transition: background 0.2s;
         }
         .btn:hover { background: var(--border); }
-        .btn-primary { background: #2a4a3a; border-color: #3d6b50; }
-        .btn-primary:hover { background: #3d6b50; }
+        .btn-primary { background: var(--btn-primary-bg); border-color: var(--btn-primary-border); }
+        .btn-primary:hover { background: var(--btn-primary-border); }
 
         .btn-icon {
             padding: 6px;
@@ -351,8 +358,8 @@
         }
 
         .edit-notice {
-            background: #1a2a4a;
-            border: 1px solid #2a4a7a;
+            background: rgba(var(--ai), 0.10);
+            border: 1px solid rgba(var(--ai), 0.40);
             border-radius: 6px;
             padding: 10px 14px;
             margin-bottom: 16px;
@@ -369,22 +376,24 @@
             top: 50px;
             left: 50%;
             transform: translateX(-50%);
-            max-width: 88%;
-            white-space: normal; /* テキストが折り返されるようにする */
-            background: rgba(15, 20, 30, 0.94);
-            border: 1px solid rgba(255, 100, 100, 0.3);
-            border-radius: 4px;
-            padding: 15px 30px;
-            color: var(--accent-overdue);
-            box-shadow: 0 4px 12px rgba(255, 0, 0, .25);
-            font-weight: 600;
+            width: max-content;
+            max-width: 92%;
+            white-space: pre-line;   /* 句点の改行を活かす */
+            text-align: left;        /* 折り返しても左揃え */
+            background: rgba(30, 28, 25, 0.97);
+            border: 1px solid rgba(var(--lantern), 0.45);
+            border-radius: 8px;
+            padding: 12px 18px;
+            color: var(--text-primary);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+            font-weight: 500;
             font-size: 14px;
-            letter-spacing: 0.05em;
+            line-height: 1.7;
+            letter-spacing: 0.04em;
             opacity: 0;
             transition: opacity 0.3s;
             pointer-events: none;
             z-index: 100;
-            text-align: center;
         }
         .toast.show { opacity: 1; }
 
@@ -552,7 +561,7 @@
         }
         .hm-cell.lv3 {
             background: rgba(var(--lantern), 0.75);
-            color: #1a1408;
+            color: #1b160d;
             font-weight: 500;
         }
         .hm-cell.today { box-shadow: inset 0 0 0 1px var(--accent-blue); }
@@ -588,7 +597,7 @@
         }
         .balance-fill {
             height: 100%;
-            background: linear-gradient(90deg, rgba(96,165,250,0.35), rgba(96,165,250,0.7));
+            background: linear-gradient(90deg, rgba(var(--ai),0.35), rgba(var(--ai),0.7));
             border-radius: 3px;
         }
         .balance-fill.daily {
@@ -633,11 +642,11 @@
         }
         .weekly-bar {
             width: 100%;
-            background: rgba(96, 165, 250, 0.4);
+            background: rgba(var(--ai), 0.4);
             border-radius: 3px 3px 0 0;
             min-height: 2px;
         }
-        .weekly-bar.current { background: rgba(96, 165, 250, 0.8); }
+        .weekly-bar.current { background: rgba(var(--ai), 0.8); }
         .weekly-labels {
             display: flex;
             gap: 6px;
@@ -655,8 +664,8 @@
             background: var(--bg-card);
             border: 1px solid var(--border-light);
             border-radius: 8px;
-            padding: 16px 16px 14px;
-            margin-bottom: 10px;
+            padding: 12px 14px 10px;
+            margin-bottom: 8px;
             text-align: center;
         }
         .today-plan-dow {
@@ -666,11 +675,11 @@
         }
         .today-plan-label {
             font-family: 'Noto Serif JP', serif;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 400;
             color: var(--text-primary);
             letter-spacing: 0.12em;
-            margin: 2px 0 4px;
+            margin: 0 0 2px;
         }
         .today-plan-memo {
             font-size: 12px;
@@ -680,7 +689,7 @@
         .today-plan-next {
             font-size: 11px;
             color: var(--text-muted);
-            margin-top: 8px;
+            margin-top: 4px;
         }
 
         .week-strip {
@@ -695,7 +704,7 @@
             border-radius: 6px;
             padding: 6px 2px 5px;
             text-align: center;
-            min-height: 62px;
+            min-height: 56px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -723,7 +732,7 @@
 
         .plan-edit-toggle {
             display: block;
-            margin: 0 0 20px auto;
+            margin: 0 0 14px auto;
             padding: 4px 2px;
             background: none;
             border: none;
@@ -786,7 +795,7 @@
         .new-badge {
             font-size: 9px;
             color: var(--accent-blue);
-            border: 1px solid rgba(96,165,250,0.5);
+            border: 1px solid rgba(var(--ai),0.5);
             border-radius: 3px;
             padding: 0 4px;
             margin-left: auto;
@@ -847,6 +856,73 @@
             color: var(--text-muted);
         }
 
+        /* ===== 回復の様子（部位の一覧） ===== */
+        .section-title {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+        .recovery-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2px 14px 10px;
+            margin-bottom: 22px;
+        }
+        .recovery-row {
+            display: grid;
+            grid-template-columns: 8px 5.4em 1fr auto;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 12px;
+        }
+        .recovery-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-muted);
+        }
+        .recovery-row.ready .recovery-dot { background: var(--accent-ready); }
+        .recovery-row.recovering .recovery-dot { background: var(--accent-recovering); }
+        .recovery-row.overdue .recovery-dot { background: var(--accent-overdue); }
+        .recovery-name { color: var(--text-primary); font-size: 12.5px; }
+        .recovery-status { color: var(--text-muted); }
+        .recovery-row.ready .recovery-status { color: var(--accent-ready); }
+        .recovery-row.recovering .recovery-status { color: var(--accent-recovering); }
+        .recovery-row.overdue .recovery-status { color: var(--accent-overdue); }
+        .recovery-last {
+            font-size: 10.5px;
+            color: var(--text-muted);
+            text-align: right;
+        }
+        .recovery-comment {
+            font-size: 11.5px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            padding-top: 10px;
+        }
+
+        /* 畳める欄 */
+        .fold {
+            margin: 18px 0 0;
+            border-top: 1px solid var(--border);
+            padding-top: 12px;
+        }
+        .fold summary {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            list-style: none;
+        }
+        .fold summary::-webkit-details-marker { display: none; }
+        .fold summary::after { content: ' ▾'; }
+        .fold[open] summary::after { content: ' ▴'; }
+        .fold .tips-grid { margin-top: 10px; }
+
         @media (max-width: 480px) {
             .input-row-3 { grid-template-columns: 1fr; }
             .rotation-grid { grid-template-columns: 1fr 1fr; }
@@ -881,46 +957,30 @@
         <button class="plan-edit-toggle" id="plan-edit-toggle" onclick="togglePlanEditor()">ローテ表を書き換える ▾</button>
         <div class="plan-editor" id="plan-editor" style="display:none;"></div>
 
-        <div class="rotation-grid" id="rotation-grid"></div>
-
-        <div class="rotation-comment" id="rotation-comment"></div>
-
         <div id="today-done"></div>
 
         <button class="btn-record-start" onclick="switchTab('record')">＋ 記録する</button>
 
-        <div class="tips-section">
-            <div class="tips-title">超回復の目安</div>
-            <div class="tips-grid">
-                <div class="tips-item">
-                    <span class="tips-part">大腿四頭筋</span>
-                    <span class="tips-hours">72時間（3日）</span>
-                </div>
-                <div class="tips-item">
-                    <span class="tips-part">ハム</span>
-                    <span class="tips-hours">72時間（3日）</span>
-                </div>
-                <div class="tips-item">
-                    <span class="tips-part">上半身</span>
-                    <span class="tips-hours">48〜72時間（2〜3日）</span>
-                </div>
-                <div class="tips-item">
-                    <span class="tips-part">コア（腹筋）</span>
-                    <span class="tips-hours">24時間（毎日可）</span>
-                </div>
-                <div class="tips-item">
-                    <span class="tips-part">ふくらはぎ</span>
-                    <span class="tips-hours">24時間（毎日可）</span>
-                </div>
-                <div class="tips-item">
-                    <span class="tips-part">尻（活性化）</span>
-                    <span class="tips-hours">毎日OK</span>
-                </div>
-            </div>
-
-            <div class="tips-title" style="margin-top:20px;">覚えておくこと</div>
-            <div class="tips-body" id="tips-body"></div>
+        <div class="section-title">回復の様子</div>
+        <div class="recovery-box">
+            <div id="rotation-grid"></div>
+            <div class="recovery-comment" id="rotation-comment"></div>
         </div>
+
+        <div class="section-title">覚えておくこと</div>
+        <div class="tips-body" id="tips-body"></div>
+
+        <details class="fold">
+            <summary>超回復の目安</summary>
+            <div class="tips-grid">
+                <div class="tips-item"><span class="tips-part">大腿四頭筋</span><span class="tips-hours">72時間（3日）</span></div>
+                <div class="tips-item"><span class="tips-part">ハム</span><span class="tips-hours">72時間（3日）</span></div>
+                <div class="tips-item"><span class="tips-part">上半身</span><span class="tips-hours">48〜72時間</span></div>
+                <div class="tips-item"><span class="tips-part">コア（腹筋）</span><span class="tips-hours">24時間（毎日可）</span></div>
+                <div class="tips-item"><span class="tips-part">ふくらはぎ</span><span class="tips-hours">24時間（毎日可）</span></div>
+                <div class="tips-item"><span class="tips-part">尻（活性化）</span><span class="tips-hours">毎日OK</span></div>
+            </div>
+        </details>
     </div>
 
     <!-- ===== 記録 ===== -->
@@ -1085,7 +1145,7 @@
     ======================================== */
     const TRACKED_PARTS = [
         { key: '大腿四頭筋', label: '大腿四頭筋', restHours: 72 },
-        { key: 'ハムストリングス', label: 'ハムストリングス', restHours: 72 },
+        { key: 'ハムストリングス', label: 'ハム', restHours: 72 },
         { key: 'コア', label: 'コア', restHours: 24 },
         { key: '上半身', label: '上半身', restHours: 72 },
     ];
@@ -1271,7 +1331,7 @@ const GREETINGS_DONE = {
 
         const exLines = todayRecord.exercises.map((ex, i) => {
             const badge = i >= copied ? '<span class="new-badge">未</span>' : '';
-            return `<div class="today-done-item"><span class="today-done-check">✓</span><span>${escapeHTML(exLabel(ex, true))}</span>${badge}</div>`;
+            return `<div class="today-done-item"><span class="today-done-check">✓</span><span>${i + 1}. ${escapeHTML(exLabel(ex, false))}</span>${badge}</div>`;
         }).join('');
 
         const stateText = copied >= totalItems ? '全部写した' : (copied > 0 ? `${copied}件まで写した` : '');
@@ -1655,10 +1715,16 @@ const GREETINGS_DONE = {
         localStorage.setItem('trainingRecords', JSON.stringify(records));
     }
 
+    // 長い言葉は、句点のところで改行して読みやすくする
+    function formatToast(text) {
+        if (text.length <= 16) return text;
+        return text.replace(/。(?!$)/g, '。\n');
+    }
+
     function showToast(text) {
         const el = document.getElementById('toast');
         if (toastTimeout) clearTimeout(toastTimeout);
-        el.textContent = text;
+        el.textContent = formatToast(text);
         el.classList.add('show');
         toastTimeout = setTimeout(() => {
             el.classList.remove('show');
@@ -1746,30 +1812,25 @@ const GREETINGS_DONE = {
             statuses.push(info.status);
 
             let statusText = '';
-            let elapsedText = '';
-
             if (info.status === 'nodata') {
                 statusText = '記録なし';
             } else if (info.status === 'ready') {
-                statusText = '回復済み ─ 狙い目';
-                const days = Math.floor(info.hours / 24);
-                const hrs = Math.floor(info.hours % 24);
-                elapsedText = `前回: ${formatDateShort(info.lastDate)}（${days > 0 ? days + '日' : ''}${hrs}時間前）`;
+                statusText = '回復済み・狙い目';
             } else if (info.status === 'recovering') {
                 const remaining = Math.ceil(part.restHours - info.hours);
-                statusText = `回復中 ─ あと約${remaining}時間`;
-                elapsedText = `前回: ${formatDateShort(info.lastDate)}`;
+                statusText = `回復中 あと約${remaining}時間`;
             } else if (info.status === 'overdue') {
                 const days = Math.floor(info.hours / 24);
-                statusText = `${days}日以上経過`;
-                elapsedText = `前回: ${formatDateShort(info.lastDate)}`;
+                statusText = `${days}日以上空いた`;
             }
+            const lastText = info.lastDate ? formatDateShort(info.lastDate) : '';
 
             html += `
-                <div class="rotation-card ${info.status}">
-                    <div class="rotation-part">${part.label}</div>
-                    <div class="rotation-status">${statusText}</div>
-                    ${elapsedText ? `<div class="rotation-elapsed">${elapsedText}</div>` : ''}
+                <div class="recovery-row ${info.status}">
+                    <span class="recovery-dot"></span>
+                    <span class="recovery-name">${part.label}</span>
+                    <span class="recovery-status">${statusText}</span>
+                    <span class="recovery-last">${lastText}</span>
                 </div>
             `;
         });
