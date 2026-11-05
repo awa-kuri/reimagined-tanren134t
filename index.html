@@ -650,6 +650,203 @@
             color: var(--text-muted);
         }
 
+        /* ===== 今日の部位（ローテ表） ===== */
+        .today-plan {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 16px 16px 14px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .today-plan-dow {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.12em;
+        }
+        .today-plan-label {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 22px;
+            font-weight: 400;
+            color: var(--text-primary);
+            letter-spacing: 0.12em;
+            margin: 2px 0 4px;
+        }
+        .today-plan-memo {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        .today-plan-next {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .week-strip {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+        .week-day {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 6px 2px 5px;
+            text-align: center;
+            min-height: 62px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+        .week-day.today { border-color: var(--accent-blue); }
+        .week-day.past { opacity: 0.6; }
+        .week-day-dow {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+        .week-day.today .week-day-dow { color: var(--accent-blue); }
+        .week-day-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            line-height: 1.3;
+            word-break: break-all;
+        }
+        .week-day-mark {
+            font-size: 10px;
+            color: rgba(var(--lantern), 0.9);
+            margin-top: auto;
+            min-height: 14px;
+        }
+
+        .plan-edit-toggle {
+            display: block;
+            margin: 0 0 20px auto;
+            padding: 4px 2px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 11px;
+            cursor: pointer;
+            letter-spacing: 0.04em;
+        }
+        .plan-editor {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 20px;
+        }
+        .plan-editor-note {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+        .plan-row {
+            display: grid;
+            grid-template-columns: 22px 1fr 1fr;
+            gap: 6px;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .plan-row-dow {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+        .plan-row .form-input, .plan-row .form-select {
+            font-size: 13px;
+            padding: 8px 10px;
+        }
+        .plan-row-memo {
+            grid-column: 2 / 4;
+            margin-bottom: 6px;
+        }
+
+        /* ===== 写す ===== */
+        .copy-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .copy-row .btn {
+            flex: 1;
+            padding: 8px 10px;
+            font-size: 12px;
+        }
+        .copy-state {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-left: 6px;
+            letter-spacing: 0;
+        }
+        .new-badge {
+            font-size: 9px;
+            color: var(--accent-blue);
+            border: 1px solid rgba(96,165,250,0.5);
+            border-radius: 3px;
+            padding: 0 4px;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        /* ===== 添え書きの札・メニュー候補 ===== */
+        .chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+        .chip {
+            padding: 6px 12px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .chip.on {
+            border-color: rgba(var(--lantern), 0.7);
+            color: rgb(var(--lantern));
+            background: rgba(var(--lantern), 0.08);
+        }
+        .hr-row {
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .hr-row.show { display: grid; }
+
+        .suggest-title {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin: 8px 0 0;
+            letter-spacing: 0.05em;
+        }
+        .suggest-chip {
+            padding: 6px 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 12px;
+            cursor: pointer;
+            text-align: left;
+            line-height: 1.4;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .suggest-chip small {
+            display: block;
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
         @media (max-width: 480px) {
             .input-row-3 { grid-template-columns: 1fr; }
             .rotation-grid { grid-template-columns: 1fr 1fr; }
@@ -678,6 +875,11 @@
 
     <!-- ===== ローテーション ===== -->
     <div id="rotation-panel" class="panel active">
+
+        <div class="today-plan" id="today-plan"></div>
+        <div class="week-strip" id="week-strip"></div>
+        <button class="plan-edit-toggle" id="plan-edit-toggle" onclick="togglePlanEditor()">ローテ表を書き換える ▾</button>
+        <div class="plan-editor" id="plan-editor" style="display:none;"></div>
 
         <div class="rotation-grid" id="rotation-grid"></div>
 
@@ -768,15 +970,33 @@
         <div class="form-group">
             <label class="form-label">メニュー・量</label>
             <div style="margin-bottom:8px;">
-                <input type="text" id="ex-menu" class="form-input" placeholder="メニュー名">
+                <input type="text" id="ex-menu" class="form-input" placeholder="メニュー名" autocomplete="off" oninput="renderSuggestions()">
+                <div class="suggest-title" id="suggest-title"></div>
+                <div class="chip-row" id="suggest-list"></div>
             </div>
             <div style="display:flex;gap:8px;align-items:stretch;">
                 <input type="text" id="ex-amount" class="form-input" placeholder="10" style="flex:1;" inputmode="numeric">
                 <button class="btn" style="white-space:nowrap;padding:10px 14px;font-size:12px;" onclick="appendUnit('分')">分</button>
                 <button class="btn" style="white-space:nowrap;padding:10px 14px;font-size:12px;" onclick="appendUnit('回×2')">回×2</button>
-                <button class="btn" onclick="addExercise()" style="white-space:nowrap;">追加</button>
             </div>
         </div>
+
+        <div class="form-group">
+            <label class="form-label">添え書き</label>
+            <input type="text" id="ex-note" class="form-input" placeholder="なし" autocomplete="off" oninput="syncChips()">
+            <div class="chip-row">
+                <button class="chip" data-token="足首W" onclick="toggleNoteToken(this)">足首W</button>
+                <button class="chip" data-token="二の腕W" onclick="toggleNoteToken(this)">二の腕W</button>
+                <button class="chip" data-token="バンド" onclick="toggleNoteToken(this)">バンド</button>
+                <button class="chip" id="hr-chip" onclick="toggleHR()">心拍</button>
+            </div>
+            <div class="hr-row" id="hr-row">
+                <input type="text" id="ex-hr-avg" class="form-input" placeholder="平均" inputmode="numeric">
+                <input type="text" id="ex-hr-max" class="form-input" placeholder="最大" inputmode="numeric">
+            </div>
+        </div>
+
+        <button class="btn" onclick="addExercise()" style="width:100%;padding:12px;">＋ この一件を追加</button>
 
         <div id="exercise-list" class="exercise-list"></div>
 
@@ -872,6 +1092,22 @@
 
     const ROTATION_BALANCE_PARTS = ['大腿四頭筋', 'ハムストリングス', '上半身'];
     const DAILY_PARTS = ['尻', 'コア', 'ふくらはぎ'];
+
+    /* ローテ表（曜日ごとの部位）。0=日〜6=土
+       part は「済ませた印」を付けるための部位。label は表示名。memo はひと言 */
+    const PLAN_PART_OPTIONS = ['大腿四頭筋', 'ハムストリングス', '上半身', 'コア', 'リカバリー', '休み'];
+    // 一週間の帯は狭いので、部位を短い名で出す
+    const PLAN_PART_SHORT = { '大腿四頭筋': '大腿', 'ハムストリングス': 'ハム', '上半身': '上半身', 'コア': 'コア', 'リカバリー': '回復', '休み': '休み' };
+    const DOW_NAMES = ['日','月','火','水','木','金','土'];
+    const DEFAULT_PLAN = {
+        0: { part: '大腿四頭筋',     label: '大腿四頭筋',   memo: 'HIT。守りの型：HIT脚とコア' },
+        1: { part: '上半身',         label: '上半身',       memo: '守りの型：アッパーボディブラスト' },
+        2: { part: 'ハムストリングス', label: 'ハム・コア',   memo: '守りの型：スタビリティブラスト' },
+        3: { part: '大腿四頭筋',     label: '大腿四頭筋',   memo: 'HIT。守りの型：HIT脚とコア' },
+        4: { part: '上半身',         label: '上半身',       memo: '守りの型：アッパーボディブラスト' },
+        5: { part: 'リカバリー',     label: 'リカバリー',   memo: 'エアロバイク。ローテのずれはここで直す' },
+        6: { part: 'ハムストリングス', label: 'ハム・コア',   memo: 'エアロバイク。守りの型：スタビリティブラスト' },
+    };
 
     const GREETINGS = {
         morning: [
@@ -1030,20 +1266,355 @@ const GREETINGS_DONE = {
             return;
         }
 
-        const exLines = todayRecord.exercises.map(ex => {
-            const parts = [ex.part];
-            if (ex.subPart) parts.push(ex.subPart);
-            const amt = ex.amount || (ex.duration ? ex.duration + '分' : '');
-            return `<div class="today-done-item"><span class="today-done-check">✓</span>${ex.category} · ${parts.join('+')} · ${ex.menu} · ${amt}</div>`;
+        const totalItems = todayRecord.exercises.length;
+        const copied = getCopyMark(today, totalItems);
+
+        const exLines = todayRecord.exercises.map((ex, i) => {
+            const badge = i >= copied ? '<span class="new-badge">未</span>' : '';
+            return `<div class="today-done-item"><span class="today-done-check">✓</span><span>${escapeHTML(exLabel(ex, true))}</span>${badge}</div>`;
         }).join('');
 
-        const totalItems = todayRecord.exercises.length;
+        const stateText = copied >= totalItems ? '全部写した' : (copied > 0 ? `${copied}件まで写した` : '');
         container.innerHTML = `
             <div class="today-done">
-                <div class="today-done-title">本日の実施（${totalItems}件）</div>
+                <div class="today-done-title">本日の実施（${totalItems}件）<span class="copy-state">${stateText}</span></div>
                 ${exLines}
+                <div class="copy-row">
+                    <button class="btn" onclick="copyReport('${today}', 'rest')">続きを写す</button>
+                    <button class="btn" onclick="copyReport('${today}', 'all')">全部写す</button>
+                </div>
             </div>
         `;
+    }
+
+    /* ========================================
+       写す（会話に貼る形）
+    ======================================== */
+    function exLabel(ex, withCategory) {
+        const amt = ex.amount || (ex.duration ? ex.duration + '分' : '');
+        const note = ex.note ? `(${ex.note})` : '';
+        if (withCategory) {
+            const parts = [ex.part];
+            if (ex.subPart) parts.push(ex.subPart);
+            return `${ex.category} · ${parts.join('+')} · ${ex.menu} · ${amt}${note}`;
+        }
+        return `${ex.menu} · ${amt}${note}`;
+    }
+
+    function escapeHTML(s) {
+        return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+    }
+
+    function getCopyMarks() {
+        try { return JSON.parse(localStorage.getItem('copyMarks') || '{}'); }
+        catch (e) { return {}; }
+    }
+
+    function getCopyMark(date, total) {
+        const n = getCopyMarks()[date] || 0;
+        return Math.min(n, total);
+    }
+
+    function setCopyMark(date, n) {
+        const marks = getCopyMarks();
+        marks[date] = n;
+        localStorage.setItem('copyMarks', JSON.stringify(marks));
+    }
+
+    function formatDateLong(dateStr) {
+        const [y, m, d] = dateStr.split('-').map(Number);
+        const w = DOW_NAMES[new Date(Date.UTC(y, m - 1, d)).getUTCDay()];
+        return `${y}年${m}月${d}日${w}曜日`;
+    }
+
+    function buildReportText(date, exs, startIdx) {
+        const lines = exs.slice(startIdx).map((ex, i) => `${startIdx + i + 1}.${exLabel(ex, false)}`);
+        return `${formatDateLong(date)}\n\n${lines.join('\n')}`;
+    }
+
+    function copyReport(date, mode) {
+        const record = getRecords().find(r => r.date === date);
+        if (!record || !record.exercises || record.exercises.length === 0) {
+            showToast('写すものがない。');
+            return;
+        }
+        const total = record.exercises.length;
+        const start = mode === 'all' ? 0 : getCopyMark(date, total);
+        if (start >= total) {
+            showToast('新しい分はない。全部写すなら隣の釦を。');
+            return;
+        }
+        const text = buildReportText(date, record.exercises, start);
+        writeClipboard(text).then(ok => {
+            if (ok) {
+                setCopyMark(date, total);
+                showToast(mode === 'all' ? `${total}件を写した。` : `${start + 1}〜${total}番を写した。`);
+                renderTodayDone();
+                if (document.getElementById('history-panel').classList.contains('active')) renderHistory();
+            } else {
+                showToast('写せなかった。もう一度押してくれ。');
+            }
+        });
+    }
+
+    function writeClipboard(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            return navigator.clipboard.writeText(text).then(() => true).catch(() => fallbackCopy(text));
+        }
+        return Promise.resolve(fallbackCopy(text));
+    }
+
+    function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.top = '0';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        ta.setSelectionRange(0, text.length);
+        let ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+        document.body.removeChild(ta);
+        return ok;
+    }
+
+    /* ========================================
+       ローテ表
+    ======================================== */
+    function getPlan() {
+        try {
+            const saved = JSON.parse(localStorage.getItem('rotationPlan') || 'null');
+            if (saved) return saved;
+        } catch (e) {}
+        return JSON.parse(JSON.stringify(DEFAULT_PLAN));
+    }
+
+    function setPlan(plan) {
+        localStorage.setItem('rotationPlan', JSON.stringify(plan));
+    }
+
+    function dowOf(dateStr) {
+        const [y, m, d] = dateStr.split('-').map(Number);
+        return new Date(Date.UTC(y, m - 1, d)).getUTCDay();
+    }
+
+    function dayDoneForPlan(dateStr, entry) {
+        const record = getRecords().find(r => r.date === dateStr);
+        if (!record || !record.exercises || record.exercises.length === 0) return false;
+        if (entry.part === 'リカバリー' || entry.part === '休み') return true;
+        return record.exercises.some(ex =>
+            (ex.category === '筋トレ' || ex.category === 'HIIT') &&
+            (ex.part === entry.part || ex.subPart === entry.part));
+    }
+
+    function renderTodayPlan() {
+        const plan = getPlan();
+        const today = getJSTDate();
+        const dow = dowOf(today);
+        const entry = plan[dow] || {};
+        const next = plan[(dow + 1) % 7] || {};
+
+        document.getElementById('today-plan').innerHTML = `
+            <div class="today-plan-dow">${DOW_NAMES[dow]}曜日</div>
+            <div class="today-plan-label">${escapeHTML(entry.label || '─')}</div>
+            ${entry.memo ? `<div class="today-plan-memo">${escapeHTML(entry.memo)}</div>` : ''}
+            <div class="today-plan-next">明日（${DOW_NAMES[(dow + 1) % 7]}）は ${escapeHTML(next.label || '─')}</div>
+        `;
+
+        // 月曜始まりの一週間
+        const weekStart = getWeekStart(today);
+        let html = '';
+        for (let i = 0; i < 7; i++) {
+            const ds = addDays(weekStart, i);
+            const dDow = dowOf(ds);
+            const e = plan[dDow] || {};
+            const classes = ['week-day'];
+            if (ds === today) classes.push('today');
+            if (ds < today) classes.push('past');
+            const done = ds <= today && dayDoneForPlan(ds, e);
+            html += `
+                <div class="${classes.join(' ')}">
+                    <div class="week-day-dow">${DOW_NAMES[dDow]}</div>
+                    <div class="week-day-label">${escapeHTML(PLAN_PART_SHORT[e.part] || e.label || '─')}</div>
+                    <div class="week-day-mark">${done ? '●' : ''}</div>
+                </div>
+            `;
+        }
+        document.getElementById('week-strip').innerHTML = html;
+    }
+
+    function togglePlanEditor() {
+        const box = document.getElementById('plan-editor');
+        const btn = document.getElementById('plan-edit-toggle');
+        if (box.style.display === 'none') {
+            renderPlanEditor();
+            box.style.display = 'block';
+            btn.textContent = 'ローテ表を閉じる ▴';
+        } else {
+            box.style.display = 'none';
+            btn.textContent = 'ローテ表を書き換える ▾';
+        }
+    }
+
+    function renderPlanEditor() {
+        const plan = getPlan();
+        const order = [1, 2, 3, 4, 5, 6, 0]; // 月曜始まり
+        let html = `<div class="plan-editor-note">部位は「済ませた印」を付けるためのもの。表示名と覚え書きは自由に書ける。</div>`;
+        order.forEach(d => {
+            const e = plan[d] || { part: '休み', label: '', memo: '' };
+            const opts = PLAN_PART_OPTIONS.map(p =>
+                `<option${p === e.part ? ' selected' : ''}>${p}</option>`).join('');
+            html += `
+                <div class="plan-row">
+                    <div class="plan-row-dow">${DOW_NAMES[d]}</div>
+                    <select class="form-select" id="plan-part-${d}">${opts}</select>
+                    <input type="text" class="form-input" id="plan-label-${d}" value="${escapeHTML(e.label || '')}" placeholder="表示名">
+                    <input type="text" class="form-input plan-row-memo" id="plan-memo-${d}" value="${escapeHTML(e.memo || '')}" placeholder="覚え書き（なくてよい）">
+                </div>
+            `;
+        });
+        html += `
+            <div class="button-group">
+                <button class="btn" onclick="resetPlan()">初めの形に戻す</button>
+                <button class="btn btn-primary" onclick="savePlan()">この表で決める</button>
+            </div>
+        `;
+        document.getElementById('plan-editor').innerHTML = html;
+    }
+
+    function savePlan() {
+        const plan = {};
+        for (let d = 0; d < 7; d++) {
+            const part = document.getElementById(`plan-part-${d}`).value;
+            const label = document.getElementById(`plan-label-${d}`).value.trim() || part;
+            const memo = document.getElementById(`plan-memo-${d}`).value.trim();
+            plan[d] = { part, label, memo };
+        }
+        setPlan(plan);
+        togglePlanEditor();
+        renderTodayPlan();
+        showToast('ローテ表を書き換えた。');
+    }
+
+    let resetArmed = false;
+    function resetPlan() {
+        if (!resetArmed) {
+            resetArmed = true;
+            showToast('もう一度押すと、初めの形に戻す。');
+            setTimeout(() => { resetArmed = false; }, 4000);
+            return;
+        }
+        resetArmed = false;
+        localStorage.removeItem('rotationPlan');
+        renderPlanEditor();
+        renderTodayPlan();
+        showToast('初めの形に戻した。');
+    }
+
+    /* ========================================
+       添え書き・メニュー候補
+    ======================================== */
+    function noteTokens() {
+        return document.getElementById('ex-note').value.split('・').map(s => s.trim()).filter(Boolean);
+    }
+
+    function toggleNoteToken(btn) {
+        const token = btn.dataset.token;
+        let tokens = noteTokens();
+        if (tokens.includes(token)) tokens = tokens.filter(t => t !== token);
+        else tokens.push(token);
+        document.getElementById('ex-note').value = tokens.join('・');
+        syncChips();
+    }
+
+    function syncChips() {
+        const tokens = noteTokens();
+        document.querySelectorAll('.chip[data-token]').forEach(c => {
+            c.classList.toggle('on', tokens.includes(c.dataset.token));
+        });
+    }
+
+    function toggleHR(force) {
+        const row = document.getElementById('hr-row');
+        const chip = document.getElementById('hr-chip');
+        const show = (typeof force === 'boolean') ? force : !row.classList.contains('show');
+        row.classList.toggle('show', show);
+        chip.classList.toggle('on', show);
+        if (!show) {
+            document.getElementById('ex-hr-avg').value = '';
+            document.getElementById('ex-hr-max').value = '';
+        }
+    }
+
+    function buildMenuIndex() {
+        // 新しい記録から順に見て、メニューごとに最後に使った形と回数を集める
+        const index = {};
+        const today = getJSTDate();
+        const cutoff = addDays(today, -27);
+        getRecords().forEach(r => {
+            (r.exercises || []).forEach(ex => {
+                if (!ex.menu) return;
+                if (!index[ex.menu]) {
+                    index[ex.menu] = { last: ex, lastDate: r.date, recent: 0 };
+                }
+                if (r.date >= cutoff) index[ex.menu].recent++;
+            });
+        });
+        return index;
+    }
+
+    function stripHR(note) {
+        // 心拍の数字は毎回違うので、候補からは引き継がない
+        return (note || '').split('・').map(s => s.trim()).filter(t => t && !/^心拍/.test(t)).join('・');
+    }
+
+    function renderSuggestions() {
+        const q = document.getElementById('ex-menu').value.trim();
+        const index = buildMenuIndex();
+        const titleEl = document.getElementById('suggest-title');
+        const listEl = document.getElementById('suggest-list');
+        let names = Object.keys(index);
+
+        if (q) {
+            names = names.filter(n => n.includes(q) && n !== q);
+            names.sort((a, b) => index[b].recent - index[a].recent);
+            titleEl.textContent = names.length ? '候補' : '';
+        } else {
+            names = names.filter(n => index[n].recent > 0);
+            names.sort((a, b) => index[b].recent - index[a].recent);
+            titleEl.textContent = names.length ? 'よく使う（直近4週間）' : '';
+        }
+        names = names.slice(0, 8);
+
+        listEl.innerHTML = names.map((n, i) => {
+            const ex = index[n].last;
+            const amt = ex.amount || (ex.duration ? ex.duration + '分' : '');
+            const note = stripHR(ex.note);
+            return `<button class="suggest-chip" data-i="${i}">${escapeHTML(n)}<small>${escapeHTML(amt)}${note ? '・' + escapeHTML(note) : ''}</small></button>`;
+        }).join('');
+        listEl.querySelectorAll('.suggest-chip').forEach(btn => {
+            btn.onclick = () => applySuggestion(index[names[Number(btn.dataset.i)]].last);
+        });
+    }
+
+    function setSelectValue(id, value) {
+        const el = document.getElementById(id);
+        const has = Array.from(el.options).some(o => (o.value || o.text) === value);
+        if (has) el.value = value;
+    }
+
+    function applySuggestion(ex) {
+        setSelectValue('ex-category', ex.category);
+        setSelectValue('ex-part', ex.part);
+        setSelectValue('ex-subpart', ex.subPart || '');
+        document.getElementById('ex-menu').value = ex.menu;
+        document.getElementById('ex-amount').value = ex.amount || (ex.duration ? ex.duration + '分' : '');
+        document.getElementById('ex-note').value = stripHR(ex.note);
+        syncChips();
+        toggleHR(/^心拍|・心拍/.test(ex.note || ''));
+        renderSuggestions();
     }
 
     /* ========================================
@@ -1206,13 +1777,15 @@ const GREETINGS_DONE = {
 
         // Comment
         let commentKey;
-        if (statuses.every(s => s === 'nodata')) commentKey = 'noData';
-        else if (statuses.some(s => s === 'overdue')) commentKey = 'overdue';
-        else if (statuses.every(s => s === 'recovering')) commentKey = 'allRecovering';
-        else if (statuses.some(s => s === 'ready')) commentKey = 'someReady';
-        else commentKey = 'allReady';
+        const known = statuses.filter(s => s !== 'nodata'); // 記録のない部位は判定から外す
+        if (known.length === 0) commentKey = 'noData';
+        else if (known.some(s => s === 'overdue')) commentKey = 'overdue';
+        else if (known.every(s => s === 'recovering')) commentKey = 'allRecovering';
+        else if (known.every(s => s === 'ready')) commentKey = 'allReady';
+        else commentKey = 'someReady';
 
         commentEl.textContent = pick(ROTATION_COMMENTS[commentKey]);
+        renderTodayPlan();
         renderTips();
         renderTodayDone();
     }
@@ -1237,10 +1810,27 @@ const GREETINGS_DONE = {
             amount = amount + '分';
         }
 
-        exercises.push({ category, part, subPart, menu, amount });
+        // 添え書き（札と手書き）＋心拍
+        const tokens = noteTokens().filter(t => !/^心拍/.test(t));
+        const hrAvg = document.getElementById('ex-hr-avg').value.trim();
+        const hrMax = document.getElementById('ex-hr-max').value.trim();
+        if (hrAvg || hrMax) {
+            const hr = [hrAvg ? `平均${hrAvg}` : '', hrMax ? `最大${hrMax}` : ''].filter(Boolean).join('/');
+            tokens.push(`心拍数${hr}`);
+        }
+        const note = tokens.join('・');
+
+        const ex = { category, part, subPart, menu, amount };
+        if (note) ex.note = note;
+        exercises.push(ex);
+
         document.getElementById('ex-menu').value = '';
         document.getElementById('ex-amount').value = '';
+        document.getElementById('ex-note').value = '';
+        syncChips();
+        toggleHR(false);
         renderExerciseList();
+        renderSuggestions();
     }
 
     function appendUnit(unit) {
@@ -1264,11 +1854,9 @@ const GREETINGS_DONE = {
             return;
         }
         container.innerHTML = exercises.map((ex, i) => {
-            const parts = [ex.part];
-            if (ex.subPart) parts.push(ex.subPart);
             return `
                 <div class="exercise-item">
-                    <span>${ex.category} · ${parts.join('+')} · ${ex.menu} · ${ex.amount}</span>
+                    <span>${escapeHTML(exLabel(ex, true))}</span>
                     <button class="btn-icon btn-danger" onclick="removeExercise(${i})">✕</button>
                 </div>
             `;
@@ -1374,6 +1962,9 @@ const GREETINGS_DONE = {
         let records = getRecords();
         records = records.filter(r => r.date !== date);
         setRecords(records);
+        const marks = getCopyMarks();
+        delete marks[date];
+        localStorage.setItem('copyMarks', JSON.stringify(marks));
         renderHistory();
         renderRotation();
         showToast('記録を削除した。');
@@ -1392,24 +1983,25 @@ const GREETINGS_DONE = {
         }
 
         container.innerHTML = records.map(record => {
-            const exLines = record.exercises.map(ex => {
-                const parts = [ex.part];
-                if (ex.subPart) parts.push(ex.subPart);
-                // Support both old format (duration) and new (amount)
-                const amt = ex.amount || (ex.duration ? ex.duration + '分' : '');
-                return `${ex.category} · ${parts.join('+')} · ${ex.menu} · ${amt}`;
-            }).join('\n');
+            const exs = record.exercises || [];
+            const exLines = exs.map(ex => escapeHTML(exLabel(ex, true))).join('\n');
+            const copied = getCopyMark(record.date, exs.length);
+            const stateText = exs.length && copied >= exs.length ? '全部写した' : (copied > 0 ? `${copied}件まで写した` : '');
 
             return `
                 <div class="record-item">
                     <div class="record-header">
-                        <div class="record-date">${formatDateShort(record.date)}</div>
+                        <div class="record-date">${formatDateShort(record.date)}<span class="copy-state">${stateText}</span></div>
                         <div>
                             <button class="btn-icon" onclick="startEdit('${record.date}')">✏️</button>
                             <button class="btn-icon btn-danger" onclick="deleteRecord('${record.date}')">✕</button>
                         </div>
                     </div>
                     <div class="record-exercises">${exLines}</div>
+                    <div class="copy-row">
+                        <button class="btn" onclick="copyReport('${record.date}', 'rest')">続きを写す</button>
+                        <button class="btn" onclick="copyReport('${record.date}', 'all')">全部写す</button>
+                    </div>
                 </div>
             `;
         }).join('');
@@ -1626,7 +2218,7 @@ const GREETINGS_DONE = {
         const records = getRecords();
         if (records.length === 0) { showToast('書き出すデータがない。'); return; }
 
-        const rows = [['日付','カテゴリ','部位','サブ部位','メニュー','量']];
+        const rows = [['日付','カテゴリ','部位','サブ部位','メニュー','量','添え書き']];
         records.forEach(record => {
             (record.exercises || []).forEach(ex => {
                 const amt = ex.amount || (ex.duration ? ex.duration + '分' : '');
@@ -1637,6 +2229,7 @@ const GREETINGS_DONE = {
                     ex.subPart || '',
                     ex.menu || '',
                     amt,
+                    ex.note || '',
                 ]);
             });
         });
@@ -1685,17 +2278,19 @@ const GREETINGS_DONE = {
                     }
                     cols.push(current);
 
-                    const [date, category, part, subPart, menu, amount] = cols;
+                    const [date, category, part, subPart, menu, amount, note] = cols;
                     if (!date) return;
 
                     if (!recordMap[date]) recordMap[date] = [];
-                    recordMap[date].push({
+                    const ex = {
                         category: category || '',
                         part: part || '',
                         subPart: subPart || '',
                         menu: menu || '',
                         amount: amount || '',
-                    });
+                    };
+                    if (note) ex.note = note;
+                    recordMap[date].push(ex);
                 });
 
                 let records = getRecords();
@@ -1745,6 +2340,7 @@ const GREETINGS_DONE = {
         document.getElementById(`${tabName}-panel`).classList.add('active');
 
         if (tabName === 'rotation') renderRotation();
+        if (tabName === 'record') renderSuggestions();
         if (tabName === 'history') renderHistory();
         if (tabName === 'stats') {
             statsMonth = null; // 開くたびに当月へ戻す
@@ -1771,6 +2367,7 @@ const GREETINGS_DONE = {
         loadDraft();
         renderRotation();
         renderHistory();
+        renderSuggestions();
     }
 
     init();
