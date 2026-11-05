@@ -187,7 +187,7 @@
             letter-spacing: 0.06em;
             transition: border-color 0.2s;
         }
-        .btn-record-start:hover { border-color: var(--accent-blue); }
+        .btn-record-start:active { border-color: var(--accent-blue); background: var(--border); }
 
         /* ===== Today's Done ===== */
         .today-done {
@@ -284,9 +284,9 @@
             letter-spacing: 0.04em;
             transition: background 0.2s;
         }
-        .btn:hover { background: var(--border); }
+        .btn:active { background: var(--border); }
         .btn-primary { background: var(--btn-primary-bg); border-color: var(--btn-primary-border); }
-        .btn-primary:hover { background: var(--btn-primary-border); }
+        .btn-primary:active { background: var(--btn-primary-border); }
 
         .btn-icon {
             padding: 6px;
@@ -296,8 +296,8 @@
             cursor: pointer;
             font-size: 14px;
         }
-        .btn-icon:hover { color: var(--text-secondary); }
-        .btn-danger:hover { color: var(--accent-overdue); }
+        .btn-icon:active { color: var(--text-secondary); }
+        .btn-danger:active { color: var(--accent-overdue); }
 
         .button-group {
             display: flex;
@@ -922,6 +922,20 @@
         .fold summary::after { content: ' ▾'; }
         .fold[open] summary::after { content: ' ▴'; }
         .fold .tips-grid { margin-top: 10px; }
+
+        /* ===== 指で押した時の手応え（スマホ向け） ===== */
+        button {
+            -webkit-tap-highlight-color: transparent; /* 灰色の一瞬の影を消し、下の変化で知らせる */
+            touch-action: manipulation;               /* 二度押しの拡大待ちをなくす */
+            transition: transform 0.08s ease, background 0.15s, border-color 0.15s, color 0.15s;
+        }
+        .btn:active, .btn-record-start:active, .chip:active, .suggest-chip:active,
+        .hm-arrow:active, .plan-edit-toggle:active, .tab:active {
+            transform: scale(0.97);
+        }
+        .chip:active, .suggest-chip:active, .hm-arrow:active { background: var(--border); }
+        .tab:active { color: var(--text-secondary); }
+        .btn-icon:active { transform: scale(0.9); }
 
         @media (max-width: 480px) {
             .input-row-3 { grid-template-columns: 1fr; }
@@ -2408,6 +2422,9 @@ const GREETINGS_DONE = {
             renderStats();
         }
     }
+
+    // iPhone の Safari で :active（押している間の変化）を効かせるための空の合図
+    document.addEventListener('touchstart', function () {}, { passive: true });
 
     /* ========================================
        Service Worker
